@@ -62,6 +62,7 @@ const gameboard = (() => {
         return board;
     }
 
+    resetBoard();
     return {resetBoard, addToken, printBoard, isWinningState, isFull, getBoard};
 })();
 
@@ -108,8 +109,17 @@ const displayManager = (() => {
         })
     } 
 
-    return {displayBoard};
+    function addClickListeners() {
+        cells.forEach(cell => {
+            cell.addEventListener("click", e => {
+                game.playRound(cell.dataset.row, cell.dataset.col);
+            })
+        })
+    }
+
+    return {displayBoard, addClickListeners};
 })();
 
-gameboard.resetBoard();
+console.log(gameboard.getBoard())
 game.printNewRound();
+displayManager.addClickListeners();
