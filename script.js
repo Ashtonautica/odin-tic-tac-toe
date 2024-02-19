@@ -58,7 +58,11 @@ const gameboard = (() => {
         return true;
     }
 
-    return {resetBoard, addToken, printBoard, isWinningState, isFull};
+    function getBoard() {
+        return board;
+    }
+
+    return {resetBoard, addToken, printBoard, isWinningState, isFull, getBoard};
 })();
 
 const game = ((playerOne, playerTwo) => {
@@ -75,6 +79,7 @@ const game = ((playerOne, playerTwo) => {
     function printNewRound() {
         gameboard.printBoard();
         console.log(`${activePlayer.name}'s turn.`);
+        displayManager.displayBoard(gameboard.getBoard());
     };
 
     function playRound(row, column) {
@@ -93,6 +98,18 @@ const game = ((playerOne, playerTwo) => {
 
     return {printNewRound, playRound};
 })(playerOne, playerTwo);
+
+const displayManager = (() => {
+    const cells = document.querySelectorAll(".cell");
+
+    function displayBoard(board) {
+        cells.forEach(cell => {
+            cell.querySelector(".token").innerHTML = board[cell.dataset.row][cell.dataset.col];
+        })
+    } 
+
+    return {displayBoard};
+})();
 
 gameboard.resetBoard();
 game.printNewRound();
