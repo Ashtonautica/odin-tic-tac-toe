@@ -50,4 +50,21 @@ table {
 
 
 /* My CSS here */
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.board {
+    display: grid;
+    grid: repeat(3, 50px) / repeat(3, 50px);
+    background-color: black;
+    gap: 2px;
+}
+
+.cell {
+    background-color: white;
+}
